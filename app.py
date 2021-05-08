@@ -119,7 +119,7 @@ def tobs():
     # return jsonify({"error": f"Character with real_name {real_name} not found."}), 404
 
 @app.route("/api/v1.0/<start>")
-def start():
+def start_date(start):
     # Create our session (link) from Python to the DB
     session = Session(engine)
    
@@ -134,15 +134,15 @@ def start():
         # search_date = character["start"].replace(" ", "").lower()
         #dt.date(2017,8,23)
         
-        if dt.date(start)
+        if dt.date(2017,8,23): #dt.date(start)
         # search_term == canonicalized:
             return jsonify(result)
 
     return jsonify({"error": f"Character with real_name {real_name} not found."}), 404
 
 
-    all_data = list(np.ravel(results))
-    return jsonify(all_data)
+  #  all_data = list(np.ravel(results))
+  #  return jsonify(all_data)
 
 
 
