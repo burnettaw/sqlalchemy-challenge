@@ -88,6 +88,36 @@ def station():
     all_data = list(np.ravel(results))
     return jsonify(all_data)
 
+############### MOST ACTIVE OBSERVATION API ###############
+@app.route("/api/v1.0/tobs")
+def tobs():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+   
+    """Return a list of all """
+    # Query all stations
+    results = session.query(Measurement.station, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
+    		
+    session.close
+
+    all_data = list(np.ravel(results))
+    return jsonify(all_data)
+
+############### OBSERVATION START DATE API ###############
+@app.route("/api/v1.0/tobs")
+def tobs():
+    # Create our session (link) from Python to the DB
+    session = Session(engine)
+   
+    """Return a list of all """
+    # Query all stations
+    results = session.query(Measurement.station, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
+    		
+    session.close
+
+    all_data = list(np.ravel(results))
+    return jsonify(all_data)
+
 if __name__ == '__main__':
     app.run(debug=True)
  
