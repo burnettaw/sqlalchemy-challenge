@@ -96,7 +96,7 @@ def tobs():
    
     """Return a list of all """
     # Query all stations
-    results = session.query(Measurement.station, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
+    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
     		
     session.close
 
@@ -104,19 +104,49 @@ def tobs():
     return jsonify(all_data)
 
 ############### OBSERVATION START DATE API ###############
-@app.route("/api/v1.0/tobs")
-def tobs():
+# @app.route("/api/v1.0/justice-league/<real_name>")
+# def justice_league_character(real_name):
+#     """Fetch the Justice League character whose real_name matches
+#        the path variable supplied by the user, or a 404 if not."""
+
+#     canonicalized = real_name.replace(" ", "").lower()
+    # for character in justice_league_members:
+    #     search_term = character["real_name"].replace(" ", "").lower()
+
+    #     if search_term == canonicalized:
+    #         return jsonify(character)
+
+    # return jsonify({"error": f"Character with real_name {real_name} not found."}), 404
+
+@app.route("/api/v1.0/<start>")
+def start():
     # Create our session (link) from Python to the DB
     session = Session(engine)
    
     """Return a list of all """
-    # Query all stations
-    results = session.query(Measurement.station, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
+    # Query all
+    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == "USC00519281").all() 
     		
     session.close
 
+    #canonicalized = start.replace(" ", "").lower()
+    for result in results:
+        # search_date = character["start"].replace(" ", "").lower()
+        #dt.date(2017,8,23)
+        
+        if dt.date(start)
+        # search_term == canonicalized:
+            return jsonify(result)
+
+    return jsonify({"error": f"Character with real_name {real_name} not found."}), 404
+
+
     all_data = list(np.ravel(results))
     return jsonify(all_data)
+
+
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
