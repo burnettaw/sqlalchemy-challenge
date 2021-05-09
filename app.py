@@ -109,32 +109,27 @@ def tobs():
 def start_date(start):
 
     session = Session(engine)
-    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date == start).all() 
+    results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).all() 
     session.close
 
-    # for result in results:
-    #     if result[0] == dt.date(start):
-    #         return jsonify(all_data)
-    
     all_data = list(np.ravel(results))
     return jsonify(all_data)
-    return jsonify({"error": f"Date with  {start} not found."}), 404
+    #return jsonify({"error": f"Date with  {start} not found."}), 404
 
 ############### OBSERVATION START DATE AND END DATE API ###############
 @app.route("/api/v1.0/<start>/<end>")
-def start_to_end_date(start,end):
+def start_to_end_date(start = None, end = None):
 
     session = Session(engine)
-    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.date >= start and Measurement.date <= end).all() 
+    #select_stats = [func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)]
+
+    results = session.query(func.min(Measurement.tobs), func.avg(Measurement.tobs), func.max(Measurement.tobs)).filter(Measurement.date >= start).filter(Measurement.date <= end).all() 
+   
     session.close
 
-    # for result in results:
-    #     if result[0] == dt.date(start):
-    #         return jsonify(all_data)
-    
     all_data = list(np.ravel(results))
     return jsonify(all_data)
-    return jsonify({"error": f"Date with  {start} not found."}), 404
+    #return jsonify({"error": f"Date with  {start} not found."}), 404
 
 if __name__ == '__main__':
     app.run(debug=True)
